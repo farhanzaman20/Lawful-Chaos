@@ -1,0 +1,15 @@
+F:\VSCode\Lawful Chaos Causes Neutrality\bin\Debug\net6.0\Lawful Chaos Causes Neutrality.exe
+F:\VSCode\Lawful Chaos Causes Neutrality\bin\Debug\net6.0\Lawful Chaos Causes Neutrality.deps.json
+F:\VSCode\Lawful Chaos Causes Neutrality\bin\Debug\net6.0\Lawful Chaos Causes Neutrality.runtimeconfig.json
+F:\VSCode\Lawful Chaos Causes Neutrality\bin\Debug\net6.0\Lawful Chaos Causes Neutrality.dll
+F:\VSCode\Lawful Chaos Causes Neutrality\bin\Debug\net6.0\Lawful Chaos Causes Neutrality.pdb
+F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\Lawful Chaos Causes Neutrality.csproj.AssemblyReference.cache
+F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\Lawful Chaos Causes Neutrality.GeneratedMSBuildEditorConfig.editorconfig
+F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\Lawful Chaos Causes Neutrality.AssemblyInfoInputs.cache
+F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\Lawful Chaos Causes Neutrality.AssemblyInfo.cs
+F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\Lawful Chaos Causes Neutrality.csproj.CoreCompileInputs.cache
+F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\Lawful Chaos Causes Neutrality.dll
+F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\refint\Lawful Chaos Causes Neutrality.dll
+F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\Lawful Chaos Causes Neutrality.pdb
+F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\Lawful Chaos Causes Neutrality.genruntimeconfig.cache
+F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\ref\Lawful Chaos Causes Neutrality.dll
