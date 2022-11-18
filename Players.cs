@@ -4,13 +4,41 @@ namespace Shin {
     public class PlayableCharacters {
         // Properties
         public string Name { get; set; }
-        public StatSheet Stats { get; set; }
+        public StatSheet RawStats { get; set; }
+        public PlayerStats Stats { get; set; }
+        public int Intel = 0;
         public int Level;
+        public CurrentEquipment Equipped { get; set; }
 
         // Constructor
-        public PlayableCharacters(string name, int str, int mag, int vit, int agl, int luc) {
+        public PlayableCharacters(string name, StatSheet statSheet) {
+            Level = 1;
             Name = name;
-            Stats = new StatSheet(str, mag, vit, agl, luc);
+            RawStats = statSheet;
+            Stats = new PlayerStats(RawStats, Level);
+            Equipped = new CurrentEquipment();
+        }
+        public PlayableCharacters(string name, StatSheet statSheet, int intel) {
+            Level = 1;
+            Name = name;
+            RawStats = statSheet;
+            Intel = intel;
+            Stats = new PlayerStats(RawStats, Level, Intel);
+            Equipped = new CurrentEquipment();
+        }
+
+        public void DisplayStats() {
+            Console.WriteLine("Level: " + Level);
+            Console.WriteLine("HP: " + Stats.HP);
+            Console.WriteLine("MP: " + Stats.MP);
+            Console.WriteLine("PhysATK: " + Stats.PhysATK);
+            Console.WriteLine("PhysDEF: " + Stats.PhysDEF);
+            Console.WriteLine("MagDEF: " + Stats.MagDEF);
+            Console.WriteLine("TurnSPD: " + Stats.TurnSPD);
+            Console.WriteLine("DodgeChange: " + Stats.DodgeChance);
+            Console.WriteLine("CritChange: " + Stats.CritChance);
+            Console.WriteLine("Negotiation: " + Stats.Negotiation);
+            Console.WriteLine("EscapeChange: " + Stats.EscapeChance);
         }
     }
 
@@ -30,17 +58,22 @@ namespace Shin {
         public int VIT;
         public int AGL;
         public int LUC;
+
+        public override string ToString() {
+            return $"STR: {STR}, MAG: {MAG}, VIT: {VIT}, AGL: {AGL}, LUC: {LUC}";
+        }
     }
 
     public struct PlayerStats {
-        // Constructor
+        // Constructor No Equipment
         public PlayerStats(StatSheet statSheet, int level) {
             // Resources
-            HP = 3 * (level + statSheet.VIT) + 10;
+            HP = Convert.ToInt32(
+                Math.Floor(3 / 2 * Convert.ToDouble(level + statSheet.VIT))) + 10;
             MP = 5 * (level + statSheet.MAG);
 
             // ATK and DEF Related
-            PhysATK = statSheet.STR * 2;
+            PhysATK = Convert.ToInt32(Math.Floor(0.7 * Convert.ToDouble(statSheet.STR)));
             PhysDEF = 0;
             GunATK = 0;
             MagATK = statSheet.MAG * 2;
@@ -55,6 +88,34 @@ namespace Shin {
 
             DodgeChance = 0;
             CritChance = 0;
+            Negotiation = 0;
+            EscapeChance = 0;
+        }
+
+        public PlayerStats(StatSheet statSheet, int level, int intel) {
+            // Resources
+            HP = Convert.ToInt32(
+                Math.Floor(( 3 * Convert.ToDouble(level + statSheet.VIT) ) / 2)) + 10;
+            MP = 0;
+
+            // ATK and DEF Related
+            PhysATK = Convert.ToInt32(Math.Floor(0.7 * Convert.ToDouble(statSheet.STR)));
+            PhysDEF = 0;
+            GunATK = 0;
+            MagATK = 0;
+            MagDEF = Convert.ToInt32(Math.Floor(intel * 0.5));
+
+            // Speed Stat
+            if (statSheet.AGL * 2 < 3) {
+                TurnSPD = 0;
+            } else {
+                TurnSPD = statSheet.AGL * 2 - 3;
+            }
+
+            DodgeChance = 0;
+            CritChance = 0;
+            Negotiation = 2 * intel + 2;
+            EscapeChance = (intel * statSheet.LUC) / 100;
         }
 
         // Stats
@@ -68,5 +129,7 @@ namespace Shin {
         public int TurnSPD;
         public double DodgeChance;
         public double CritChance;
+        public int Negotiation;
+        public double EscapeChance;
     }
 }
