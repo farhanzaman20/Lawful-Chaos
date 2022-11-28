@@ -8,7 +8,8 @@ namespace Shin {
         public PlayerStats Stats { get; set; }
         public int Intel = 0;
         public int Level;
-        public CurrentEquipment Equipped { get; set; }
+        public int XP = 0;
+        public EquipmentManager Equipped { get; set; }
 
         // Constructor
         public PlayableCharacters(string name, StatSheet statSheet) {
@@ -16,7 +17,7 @@ namespace Shin {
             Name = name;
             RawStats = statSheet;
             Stats = new PlayerStats(RawStats, Level);
-            Equipped = new CurrentEquipment();
+            Equipped = new EquipmentManager(-1, -1, -1, -1, -1, -1, -1);
         }
         public PlayableCharacters(string name, StatSheet statSheet, int intel) {
             Level = 1;
@@ -24,7 +25,7 @@ namespace Shin {
             RawStats = statSheet;
             Intel = intel;
             Stats = new PlayerStats(RawStats, Level, Intel);
-            Equipped = new CurrentEquipment();
+            Equipped = new EquipmentManager(-1, -1, -1, -1, -1, -1, -1);
         }
 
         public void DisplayStats() {
@@ -40,6 +41,10 @@ namespace Shin {
             Console.WriteLine("Negotiation: " + Stats.Negotiation);
             Console.WriteLine("EscapeChange: " + Stats.EscapeChance);
         }
+
+        public void UpdateStats() {
+            StatSheet trueStats = new StatSheet();
+        }
     }
 
     public struct StatSheet {
@@ -50,6 +55,14 @@ namespace Shin {
             VIT = vit;
             AGL = agl;
             LUC = luc;
+        }
+
+        public StatSheet() {
+            STR = 0;
+            MAG = 0;
+            VIT = 0;
+            AGL = 0;
+            LUC = 0;
         }
 
         // Stats

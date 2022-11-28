@@ -3,34 +3,34 @@
 namespace Shin {
     public class Equipment {
         // Properties
-        public string Type { get; set; }
         public string Name { get; set; }
         public object StatMod { get; set; }
 
         // Constructor
-        public Equipment(string type, string name) {
-            Type = type;
-            if (Type == "melee") {
-                StatMod = new MeleeMod();
-            } else if (Type == "gun") {
-                StatMod = new GunMod();
-            } else if (Type == "ammo") {
-                StatMod = new AmmoMod();
-            } else if (Type == "armour") {
-                StatMod = new ArmourMod();
-            }
+        public Equipment(string name, object statMod) {
+            Name = name;
+            StatMod = statMod;
         }
     }
 
     public struct MeleeMod {
+        public MeleeMod(int power, double critChance, int accuracy, int noh, StatSheet mod) {
+            Power = power;
+            CritChance = critChance;
+            Accuracy = accuracy;
+            NumberOfHits = noh;
+            StatMod = mod;
+        }
         public int Power;
-        public int CritChance;
+        public double CritChance;
+        public int Accuracy;
+        public int NumberOfHits;
         public StatSheet StatMod;
     }
 
     public struct GunMod {
         public int Power;
-        public int CritChance;
+        public double CritChance;
         public StatSheet StatMod;
     }
 
@@ -45,14 +45,51 @@ namespace Shin {
         public StatSheet StatMod; 
     }
 
-    public struct CurrentEquipment {
+    public class EquipmentManager {
+        public EquipmentManager(int melee, int gun, int ammo, int head, int body, int legs, int foot) {
+            MeleeWeapon = melee;
+            GunWeapon = gun;
+            Ammo = ammo;
+            Headwear = head;
+            BodyArmour = body;
+            Bracers = legs;
+            Footwear = foot;
+            TotalStatMod = new StatSheet(
+                                
+            );
+        }
         // Properties
-        public Equipment MeleeWeapon;
-        public Equipment GunWeapon;
-        public Equipment Ammo;
-        public Equipment Head;
-        public Equipment Body;
-        public Equipment Legs;
-        public Equipment Feet;
+        public int MeleeWeapon;
+        public int GunWeapon;
+        public int Ammo;
+        public int Headwear;
+        public int BodyArmour;
+        public int Bracers;
+        public int Footwear;
+        public StatSheet TotalStatMod;
+
+        public Equipment[] MeleeWeapons = {
+            new Equipment("Attack Knife", new MeleeMod(6, 0.1, 1, 1, new StatSheet())),
+            new Equipment("Tonfa", new MeleeMod(6, 0.05, 2, 2, new StatSheet()))
+        };
+
+        public Equipment[] GunWeapons = {
+
+        };
+        public Equipment[] Ammos = {
+
+        };
+        public Equipment[] Headwears = {
+
+        };
+        public Equipment[] BodyArmours = {
+
+        };
+        public Equipment[] BracerArmours = {
+
+        };
+        public Equipment[] Footwears = {
+
+        };
     }
 }
