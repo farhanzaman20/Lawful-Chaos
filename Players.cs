@@ -43,7 +43,6 @@ namespace Shin {
         }
 
         public void UpdateStats() {
-            StatSheet trueStats = new StatSheet();
         }
     }
 

@@ -68,27 +68,27 @@ namespace Shin {
         public int Footwear;
         public StatSheet TotalStatMod;
 
-        public Equipment[] MeleeWeapons = {
+        public static Equipment[] MeleeWeapons = {
             new Equipment("Attack Knife", new MeleeMod(6, 0.1, 1, 1, new StatSheet())),
             new Equipment("Tonfa", new MeleeMod(6, 0.05, 2, 2, new StatSheet()))
         };
 
-        public Equipment[] GunWeapons = {
+        public static Equipment[] GunWeapons = {
 
         };
-        public Equipment[] Ammos = {
+        public static Equipment[] Ammos = {
 
         };
-        public Equipment[] Headwears = {
+        public static Equipment[] Headwears = {
 
         };
-        public Equipment[] BodyArmours = {
+        public static Equipment[] BodyArmours = {
 
         };
-        public Equipment[] BracerArmours = {
+        public static Equipment[] BracerArmours = {
 
         };
-        public Equipment[] Footwears = {
+        public static Equipment[] Footwears = {
 
         };
     }
