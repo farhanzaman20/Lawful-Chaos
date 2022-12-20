@@ -6,7 +6,6 @@ namespace Shin {
         public string Name { get; set; }
         public StatSheet RawStats { get; set; }
         public PlayerStats Stats { get; set; }
-        public int Intel = 0;
         public int Level;
         public int XP = 0;
         public EquipmentManager Equipped { get; set; }
@@ -17,14 +16,6 @@ namespace Shin {
             Name = name;
             RawStats = statSheet;
             Stats = new PlayerStats(RawStats, Level);
-            Equipped = new EquipmentManager(-1, -1, -1, -1, -1, -1, -1);
-        }
-        public PlayableCharacters(string name, StatSheet statSheet, int intel) {
-            Level = 1;
-            Name = name;
-            RawStats = statSheet;
-            Intel = intel;
-            Stats = new PlayerStats(RawStats, Level, Intel);
             Equipped = new EquipmentManager(-1, -1, -1, -1, -1, -1, -1);
         }
 

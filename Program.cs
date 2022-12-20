@@ -1,5 +1,4 @@
-﻿// SMT 1 Logic I guess. Will port this over to Unity later
-#nullable disable
+﻿#nullable disable
 
 namespace Shin {
     class Program {
@@ -11,18 +10,6 @@ namespace Shin {
             cannot use magic at all, and he will instead get INT.
             */
             
-            PlayableCharacters mainPlayer = new PlayableCharacters("Flynn", new StatSheet(10, 5, 10, 10, 8), 12);
-            mainPlayer.DisplayStats();
-            Console.WriteLine(mainPlayer.RawStats.ToString());
-        }
-
-        static void CharacterCreator() {
-            // Name
-            Console.Write("Enter a name: ");
-            string name = Console.ReadLine();
-
-            // Stats
-            Console.WriteLine("You can distribute 20 stat points among five stats.");
         }
     }
 }

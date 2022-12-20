@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "PPA/ERXNBWP8FvzNwGEZP3bPtPBl3tG7Kopt96ZWkWCcXkeYKBRb499g7YmPbS8ThABs2oaSuHNzoaX0MemQkg==",
+  "dgSpecHash": "ArpyKbJf0xHQ5o49maziOaSQEG+IlAZn6CKudKBSPZfFhroRL0k6bbXa21Wn1kZRGoZgUrDqrmYzFrSeD1b91g==",
   "success": true,
   "projectFilePath": "F:\\VSCode\\Lawful Chaos Causes Neutrality\\Lawful Chaos Causes Neutrality.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\f.zaman\\.nuget\\packages\\nstack.core\\1.0.3\\nstack.core.1.0.3.nupkg.sha512",
+    "C:\\Users\\f.zaman\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512",
+    "C:\\Users\\f.zaman\\.nuget\\packages\\terminal.gui\\1.8.2\\terminal.gui.1.8.2.nupkg.sha512"
+  ],
   "logs": []
 }

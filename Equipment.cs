@@ -40,8 +40,15 @@ namespace Shin {
     }
 
     public struct ArmourMod {
+        public ArmourMod(int def, int magDef, int evasion, StatSheet statMod) {
+            DEF = def;
+            MagDEF = magDef;
+            Evasion = evasion;
+            StatMod = statMod;
+        }
         public int DEF;
         public int MagDEF;
+        public int Evasion;
         public StatSheet StatMod; 
     }
 
@@ -70,7 +77,9 @@ namespace Shin {
 
         public static Equipment[] MeleeWeapons = {
             new Equipment("Attack Knife", new MeleeMod(6, 0.1, 1, 1, new StatSheet())),
-            new Equipment("Tonfa", new MeleeMod(6, 0.05, 2, 2, new StatSheet()))
+            new Equipment("Tonfa", new MeleeMod(6, 0.05, 2, 2, new StatSheet())),
+            new Equipment("Machete", new MeleeMod(7, 0.1, 2, 1, new StatSheet())),
+            new Equipment("Spiked Rod", new MeleeMod(8, 0.03, 5, 1, new StatSheet()))
         };
 
         public static Equipment[] GunWeapons = {
@@ -80,10 +89,10 @@ namespace Shin {
 
         };
         public static Equipment[] Headwears = {
-
+            new Equipment("Headgear", new ArmourMod(3, 2, 2, new StatSheet()))
         };
         public static Equipment[] BodyArmours = {
-
+            
         };
         public static Equipment[] BracerArmours = {
 
