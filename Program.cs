@@ -10,6 +10,7 @@ namespace Shin {
             cannot use magic at all, and he will instead get INT.
             */
             
+            CharacterCreator.Initialize();
         }
     }
 }

@@ -13,3 +13,9 @@ F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\refint\Lawful Chaos Ca
 F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\Lawful Chaos Causes Neutrality.pdb
 F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\Lawful Chaos Causes Neutrality.genruntimeconfig.cache
 F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\ref\Lawful Chaos Causes Neutrality.dll
+F:\VSCode\Lawful Chaos Causes Neutrality\bin\Debug\net6.0\NStack.dll
+F:\VSCode\Lawful Chaos Causes Neutrality\bin\Debug\net6.0\Terminal.Gui.dll
+F:\VSCode\Lawful Chaos Causes Neutrality\bin\Debug\net6.0\fr-FR\Terminal.Gui.resources.dll
+F:\VSCode\Lawful Chaos Causes Neutrality\bin\Debug\net6.0\ja-JP\Terminal.Gui.resources.dll
+F:\VSCode\Lawful Chaos Causes Neutrality\bin\Debug\net6.0\pt-PT\Terminal.Gui.resources.dll
+F:\VSCode\Lawful Chaos Causes Neutrality\obj\Debug\net6.0\Lawful Chaos Causes Neutrality.csproj.CopyComplete
