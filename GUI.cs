@@ -2,30 +2,45 @@
 using Terminal.Gui;
 
 namespace Shin {
-    class CharacterCreator {
+    static class CharacterCreator {
+        
         public static void Initialize() {
             Application.Init();
             Toplevel top = Application.Top;
 
             Window win = new Window(new Rect(0, 0, top.Frame.Width, top.Frame.Height), "Character Creator");
             top.Add(win);
+            GUISettings.Keybinds(win);
 
             Button quitBtn = new Button() {
                 Text = "Quit",
-                X = top.Frame.Width - 10,
+                X = 0,
                 Y = 0
             };
-
-            int maxStatAllocation = 20;
-
 
             quitBtn.Clicked += () => {
                 Application.RequestStop();
             };
 
             // STR
-            StatLabel strLab = new StatLabel("STR", 2, 3, ref maxStatAllocation);
-            strLab.Add(win);
+            StatLabel strLabel = new StatLabel("STR", 5, 3);
+            strLabel.Add(win);
+
+            // MAG
+            StatLabel magLabel = new StatLabel("MAG", 20, 3);
+            magLabel.Add(win);
+
+            // VIT
+            StatLabel vitLabel = new StatLabel("VIT", 35, 3);
+            vitLabel.Add(win);
+
+            // AGL
+            StatLabel aglLabel = new StatLabel("AGL", 50, 3);
+            aglLabel.Add(win);
+
+            // LUC
+            StatLabel lucLabel = new StatLabel("LUC", 65, 3);
+            lucLabel.Add(win);
 
             win.Add(quitBtn);
             Application.Run();
@@ -33,7 +48,7 @@ namespace Shin {
     }
 
     class StatLabel {
-        public StatLabel(string name, int x, int y, ref int maxStat) {
+        public StatLabel(string name, int x, int y) {
             Name = name;
             X = x;
             Y = y;
@@ -92,6 +107,16 @@ namespace Shin {
 
         private void RefreshPointLabel() {
             AllocatedPoints.Text = $" - {PointAmmount}";
+        }
+    }
+
+    static class GUISettings {
+        public static void Keybinds(Window win) {
+            // Add Vim keys for navigation
+            win.AddKeyBinding(Key.H, Command.Left);
+            win.AddKeyBinding(Key.L, Command.Right);
+
+            
         }
     }
 }
