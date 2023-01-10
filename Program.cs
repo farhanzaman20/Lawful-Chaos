@@ -3,6 +3,11 @@
 namespace Shin {
     class Program {
         static void Main () {
+            CharactorCreation();
+        }
+
+        static void CharactorCreation() {
+            #region Charactor Creation
             /*
             Stat Allocation Planning
             All characters will start with 5 points in every stat, and then will be able to allocate
@@ -10,7 +15,8 @@ namespace Shin {
             cannot use magic at all, and he will instead get INT.
             */
             
-            CharacterCreator.Initialize();
+            CharacterCreator.StatInit();
+            #endregion
         }
     }
 }

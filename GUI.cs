@@ -3,7 +3,11 @@ using Terminal.Gui;
 
 namespace Shin {
     static class CharacterCreator {
-        public static void Initialize() {
+        public static void Character() {
+
+        }
+
+        public static void StatInit() {
             Application.Init();
             Toplevel top = Application.Top;
 
@@ -29,7 +33,7 @@ namespace Shin {
             };
 
             // STR
-            StatLabel strLabel = new StatLabel("STR", 5, 3, statTotal, totalLabel);
+            StatLabel strLabel = new StatLabel("STR", 5, 3);
             strLabel.MinusButton.Clicked += () => {
                 if (strLabel.PointAmmount > 5 && statTotal < 20) {
                     strLabel.PointAmmount--;
@@ -51,7 +55,7 @@ namespace Shin {
             strLabel.Add(win);
 
             // MAG
-            StatLabel magLabel = new StatLabel("MAG", 20, 3, statTotal, totalLabel);
+            StatLabel magLabel = new StatLabel("MAG", 20, 3);
             magLabel.MinusButton.Clicked += () => {
                 if (magLabel.PointAmmount > 5 && statTotal < 20) {
                     magLabel.PointAmmount--;
@@ -72,7 +76,7 @@ namespace Shin {
             magLabel.Add(win);
 
             // VIT
-            StatLabel vitLabel = new StatLabel("VIT", 35, 3, statTotal, totalLabel);
+            StatLabel vitLabel = new StatLabel("VIT", 35, 3);
             vitLabel.MinusButton.Clicked += () => {
                 if (vitLabel.PointAmmount > 5 && statTotal < 20) {
                     vitLabel.PointAmmount--;
@@ -93,7 +97,7 @@ namespace Shin {
             vitLabel.Add(win);
 
             // AGL
-            StatLabel aglLabel = new StatLabel("AGL", 50, 3, statTotal, totalLabel);
+            StatLabel aglLabel = new StatLabel("AGL", 50, 3);
             aglLabel.MinusButton.Clicked += () => {
                 if (aglLabel.PointAmmount > 5 && statTotal < 20) {
                     aglLabel.PointAmmount--;
@@ -114,7 +118,7 @@ namespace Shin {
             aglLabel.Add(win);
 
             // LUC
-            StatLabel lucLabel = new StatLabel("LUC", 65, 3, statTotal, totalLabel);
+            StatLabel lucLabel = new StatLabel("LUC", 65, 3);
             lucLabel.MinusButton.Clicked += () => {
                 if (lucLabel.PointAmmount > 5 && statTotal < 20) {
                     lucLabel.PointAmmount--;
@@ -134,13 +138,38 @@ namespace Shin {
             };
             lucLabel.Add(win);
 
-            win.Add(totalLabel, quitBtn);
+            Label statInfo = new Label {
+                X = 3,
+                Y = 8,
+                Text = @"
+                STR: Physical attack and hit rate
+                MAG: Magic attack and defence
+                VIT: Health and physcial defence
+                AGL: Speed and evasion
+                LUC: Various effects"
+            };
+
+            Button confirmBtn = new Button {
+                X = 35,
+                Y = 6,
+                Text = "Confirm"
+            };
+
+            confirmBtn.Clicked += () => {
+                int nestedConfirm = MessageBox.Query(
+                    50, 7, "Confirm", "Are you okay with this stat distribution?", "Yes", "No"
+                );
+
+                if (nestedConfirm == 0 )
+            };
+
+            win.Add(statInfo, confirmBtn, totalLabel, quitBtn);
             Application.Run();
         }
     }
 
-    class StatLabel {
-        public StatLabel(string name, int x, int y, int statTotal, Label statLabel) {
+    internal class StatLabel {
+        public StatLabel(string name, int x, int y) {
             Name = name;
             X = x;
             Y = y;

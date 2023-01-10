@@ -13,6 +13,7 @@ namespace Shin {
         }
     }
 
+    #region Equipment Stat Modifiers
     public struct MeleeMod {
         public MeleeMod(int power, double critChance, int accuracy, int noh, StatSheet mod) {
             Power = power;
@@ -51,6 +52,7 @@ namespace Shin {
         public int Evasion;
         public StatSheet StatMod; 
     }
+    #endregion
 
     public class EquipmentManager {
         public EquipmentManager(int melee, int gun, int ammo, int head, int body, int legs, int foot) {

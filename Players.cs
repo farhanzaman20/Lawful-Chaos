@@ -37,6 +37,7 @@ namespace Shin {
         }
     }
 
+    #region Stats
     public struct StatSheet {
         // Constructor
         public StatSheet(int str, int mag, int vit, int agl, int luc) {
@@ -95,32 +96,6 @@ namespace Shin {
             EscapeChance = 0;
         }
 
-        public PlayerStats(StatSheet statSheet, int level, int intel) {
-            // Resources
-            HP = Convert.ToInt32(
-                Math.Floor(( 3 * Convert.ToDouble(level + statSheet.VIT) ) / 2)) + 10;
-            MP = 0;
-
-            // ATK and DEF Related
-            PhysATK = Convert.ToInt32(Math.Floor(0.7 * Convert.ToDouble(statSheet.STR)));
-            PhysDEF = 0;
-            GunATK = 0;
-            MagATK = 0;
-            MagDEF = Convert.ToInt32(Math.Floor(intel * 0.5));
-
-            // Speed Stat
-            if (statSheet.AGL * 2 < 3) {
-                TurnSPD = 0;
-            } else {
-                TurnSPD = statSheet.AGL * 2 - 3;
-            }
-
-            DodgeChance = 0;
-            CritChance = 0;
-            Negotiation = 2 * intel + 2;
-            EscapeChance = (intel * statSheet.LUC) / 100;
-        }
-
         // Stats
         public int HP;
         public int MP;
@@ -135,4 +110,5 @@ namespace Shin {
         public int Negotiation;
         public double EscapeChance;
     }
+    #endregion
 }
