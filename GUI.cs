@@ -7,7 +7,7 @@ namespace Shin {
 
         }
 
-        public static void StatInit() {
+        public static StatSheet StatInit() {
             Application.Init();
             Toplevel top = Application.Top;
 
@@ -155,12 +155,22 @@ namespace Shin {
                 Text = "Confirm"
             };
 
+            StatSheet createdStats;
+
             confirmBtn.Clicked += () => {
                 int nestedConfirm = MessageBox.Query(
                     50, 7, "Confirm", "Are you okay with this stat distribution?", "Yes", "No"
                 );
 
-                if (nestedConfirm == 0 )
+                if (nestedConfirm == 0 ) {
+                    createdStats = new StatSheet(
+                        strLabel.PointAmmount,
+                        magLabel.PointAmmount,
+                        vitLabel.PointAmmount,
+                        aglLabel.PointAmmount,
+                        lucLabel.PointAmmount
+                    );
+                }
             };
 
             win.Add(statInfo, confirmBtn, totalLabel, quitBtn);
