@@ -4,60 +4,73 @@ namespace Shin {
     static class Program {
         static void Main () {
             Console.Clear();
-            CharactorCreation();
+            Game gameController = new Game(CharactorCreation());
+            gameController.MainCharacter.DisplayStats();
         }
 
-        static async void CharactorCreation() {
+        static PlayableCharacter CharactorCreation() {
+            Console.Write("Enter a name: ");
+            string name = Console.ReadLine();
             int statTotal = 20;
-            int strStat, magStat, vitStat, aglStat, lucStat;
-            strStat = magStat = vitStat = aglStat = lucStat = 5;
+            int[] stats = {5, 5, 5, 5, 5};
 
-            while (statTotal != 0) {
+            while (statTotal > 0) {
                 Console.Clear();
                 Console.WriteLine("Choose a stat to increase or decrease, then increment");
                 Console.WriteLine("Format: {stat} {+/-}{value}, eg. str +4");
                 Console.WriteLine($"Remaining Stat Points: {statTotal}");
-                Console.WriteLine($"Str: {strStat}, Mag: {magStat}, Vit: {vitStat}, Agl: {aglStat}, Luc: {lucStat}");
+                Console.WriteLine($"Str: {stats[0]}, Mag: {stats[1]}, Vit: {stats[2]}, Agl: {stats[3]}, Luc: {stats[4]}");
                 Console.Write("Input: ");
                 string inputStr = Console.ReadLine();
 
-                string[] strArray = inputStr.Split(" ", 3);
+                string[] strArray = inputStr.Split(" ", 2);
                 int incrementVal = Convert.ToInt32(strArray[1]);
-                if (strArray.Length == 2) {
-                    if (incrementVal > statTotal) {
-                        Console.WriteLine("Not enough stat points left");
-                        await Task.Delay(1);
-                        continue;
+                if (incrementVal > statTotal) {
+                    Console.Clear();
+                    Console.WriteLine("Not enough stat points left");
+                    continue;
+                } else {
+                    statTotal -= incrementVal;
+                    if (strArray[0].ToLower() == "str") {
+                        stats[0] += incrementVal;
+                    } else if (strArray[0].ToLower() == "mag") {
+                        stats[1] += incrementVal;
+                    } else if (strArray[0].ToLower() == "vit") {
+                        stats[2] += incrementVal;
+                    } else if (strArray[0].ToLower() == "agl") {
+                        stats[3] += incrementVal;
+                    } else if (strArray[0].ToLower() == "luc") {
+                        stats[4] += incrementVal;
                     } else {
-                        statTotal -= incrementVal;
-                        if (strArray[0].ToLower() == "str") {
-                            strStat += incrementVal;
-                        } else if (strArray[0].ToLower() == "mag") {
-                            magStat += incrementVal;
-                        } else if (strArray[0].ToLower() == "vit") {
-                            vitStat += incrementVal;
-                        } else if (strArray[0].ToLower() == "agl") {
-                            aglStat += incrementVal;
-                        } else if (strArray[0].ToLower() == "luc") {
-                            lucStat += incrementVal;
-                        } else {
-                            Console.WriteLine("Invalid input");
-                            await Task.Delay(1);
-                            continue;
+                        Console.Clear();
+                        Console.WriteLine("Invalid input");
+                        continue;
+                    }
+                    for (int i = 0; i < stats.Length; i++) {
+                        while (stats[i] >= 13) {
+                            stats[i]--;
+                            statTotal++;
+                        }
+                        while (stats[i] < 5) {
+                            stats[i]++;
+                            statTotal--;
                         }
                     }
-                } else {
-                    Console.WriteLine("Invalid input");
-                    await Task.Delay(1);
-                    continue;
                 }
             }
+            StatSheet mcStats = new StatSheet(stats[0], stats[1], stats[2], stats[3], stats[4]);
+            return new PlayableCharacter(name, mcStats);
         }
     }
 
-    class Game {
-        PlayableCharacters MainCharacter { get; set; }
-        PlayableCharacters[] Party = new PlayableCharacters[4];
-        List<PlayableCharacters> PartyOptions { get; set; }
+    public class Game {
+        public PlayableCharacter MainCharacter { get; set; }
+        public int[] Party = {-1, -1, -1};
+        public List<PlayableCharacter> PartyOptions { get; set; }
+
+        public Game(PlayableCharacter mc) {
+            PartyOptions = new List<PlayableCharacter>();
+            MainCharacter = mc;
+        }
     }
 }

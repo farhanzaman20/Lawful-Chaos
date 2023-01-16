@@ -30,13 +30,33 @@ namespace Shin {
     }
 
     public struct GunMod {
+        public GunMod(int power, double critChance, int accuracy, GunHitType hitType, StatSheet mod) {
+            Power = power;
+            CritChance = critChance;
+            Accuracy = accuracy;
+            HitType = hitType;
+            StatMod = mod;
+        }
         public int Power;
         public double CritChance;
+        public int Accuracy;
+        public GunHitType HitType;
         public StatSheet StatMod;
     }
 
+    public enum GunHitType {
+        Single,
+        AoE,
+        Random,
+        None 
+    }
+
     public struct AmmoMod {
-        public double Multiplier;
+        public AmmoMod(int multiplier, Elements type) {
+            Multiplier = multiplier;
+            Type = type;
+        }
+        public int Multiplier;
         public Elements Type;
     }
 
@@ -78,29 +98,26 @@ namespace Shin {
         public StatSheet TotalStatMod;
 
         public static Equipment[] MeleeWeapons = {
-            new Equipment("Attack Knife", new MeleeMod(6, 0.1, 1, 1, new StatSheet())),
-            new Equipment("Tonfa", new MeleeMod(6, 0.05, 2, 2, new StatSheet())),
-            new Equipment("Machete", new MeleeMod(7, 0.1, 2, 1, new StatSheet())),
-            new Equipment("Spiked Rod", new MeleeMod(8, 0.03, 5, 1, new StatSheet()))
+            new Equipment("Attack Knife", new MeleeMod(6, 0.1, 1, 1, new StatSheet()))
         };
 
         public static Equipment[] GunWeapons = {
-
+            new Equipment("Pistol", new GunMod(3, 0.05, 2, GunHitType.Single, new StatSheet()))
         };
         public static Equipment[] Ammos = {
-
+            new Equipment("Bullet", new AmmoMod(2, Elements.Physical))
         };
         public static Equipment[] Headwears = {
             new Equipment("Headgear", new ArmourMod(3, 2, 2, new StatSheet()))
         };
         public static Equipment[] BodyArmours = {
-            
+            new Equipment("Body Armour", new ArmourMod(5, 1, 1, new StatSheet()))
         };
         public static Equipment[] BracerArmours = {
-
+            new Equipment("Basic Leggings", new ArmourMod(4, 2, 2, new StatSheet()))
         };
         public static Equipment[] Footwears = {
-
+            new Equipment("Running Shoes", new ArmourMod(2, 1, 4, new StatSheet()))
         };
     }
 }

@@ -10,8 +10,7 @@ namespace Shin {
         Light,
         Dark,
         Almighty,
-        Ailment,
-        None
+        Ailment
     }
 
     public enum Ailments {

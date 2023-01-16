@@ -1,7 +1,7 @@
 #nullable disable
 
 namespace Shin {
-    public class PlayableCharacters {
+    public class PlayableCharacter {
         // Properties
         public string Name { get; set; }
         public StatSheet RawStats { get; set; }
@@ -11,12 +11,12 @@ namespace Shin {
         public EquipmentManager Equipped { get; set; }
 
         // Constructor
-        public PlayableCharacters(string name, StatSheet statSheet) {
+        public PlayableCharacter(string name, StatSheet statSheet) {
             Level = 1;
             Name = name;
             RawStats = statSheet;
             Stats = new PlayerStats(RawStats, Level);
-            Equipped = new EquipmentManager(-1, -1, -1, -1, -1, -1, -1);
+            Equipped = new EquipmentManager(0, -1, -1, 0, 0, 0, 0);
         }
 
         public void DisplayStats() {
@@ -27,13 +27,14 @@ namespace Shin {
             Console.WriteLine("PhysDEF: " + Stats.PhysDEF);
             Console.WriteLine("MagDEF: " + Stats.MagDEF);
             Console.WriteLine("TurnSPD: " + Stats.TurnSPD);
-            Console.WriteLine("DodgeChange: " + Stats.DodgeChance);
+            Console.WriteLine("DodgeChange: " + Stats.Evasion);
             Console.WriteLine("CritChange: " + Stats.CritChance);
             Console.WriteLine("Negotiation: " + Stats.Negotiation);
             Console.WriteLine("EscapeChange: " + Stats.EscapeChance);
         }
 
         public void UpdateStats() {
+
         }
     }
 
@@ -90,10 +91,10 @@ namespace Shin {
                 TurnSPD = statSheet.AGL * 2 - 3;
             }
 
-            DodgeChance = 0;
-            CritChance = 0;
-            Negotiation = 0;
-            EscapeChance = 0;
+            // Misc
+            Evasion = Convert.ToInt32(Math.Floor(statSheet.AGL * 0.3) + Math.Floor(statSheet.LUC * 0.5));
+            CritChance = Math.Floor(statSheet.LUC * 0.01);
+            EscapeChance = Convert.ToInt32(Math.Floor(statSheet.LUC * 0.05));
         }
 
         // Stats
@@ -105,9 +106,8 @@ namespace Shin {
         public int MagATK;
         public int MagDEF;
         public int TurnSPD;
-        public double DodgeChance;
+        public int Evasion;
         public double CritChance;
-        public int Negotiation;
         public double EscapeChance;
     }
     #endregion

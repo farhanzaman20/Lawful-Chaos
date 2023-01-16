@@ -152,11 +152,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\VSCode\\Lawful Chaos Causes Neutrality\\Lawful Chaos Causes Neutrality.csproj",
+      "projectUniqueName": "F:\\VSCode\\Lawful Chaos\\Lawful Chaos Causes Neutrality.csproj",
       "projectName": "Lawful Chaos Causes Neutrality",
-      "projectPath": "F:\\VSCode\\Lawful Chaos Causes Neutrality\\Lawful Chaos Causes Neutrality.csproj",
+      "projectPath": "F:\\VSCode\\Lawful Chaos\\Lawful Chaos Causes Neutrality.csproj",
       "packagesPath": "C:\\Users\\f.zaman\\.nuget\\packages\\",
-      "outputPath": "F:\\VSCode\\Lawful Chaos Causes Neutrality\\obj\\",
+      "outputPath": "F:\\VSCode\\Lawful Chaos\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
