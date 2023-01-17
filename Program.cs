@@ -5,13 +5,14 @@ namespace Shin {
         static void Main () {
             Console.Clear();
             Game gameController = new Game(CharactorCreation());
-            gameController.MainCharacter.DisplayStats();
+            Console.WriteLine("Current Stats");
+            Console.WriteLine(gameController.MainCharacter.RawStats.ToString());
         }
 
         static PlayableCharacter CharactorCreation() {
             Console.Write("Enter a name: ");
             string name = Console.ReadLine();
-            int statTotal = 20;
+            int statTotal = 16;
             int[] stats = {5, 5, 5, 5, 5};
 
             while (statTotal > 0) {
@@ -19,7 +20,7 @@ namespace Shin {
                 Console.WriteLine("Choose a stat to increase or decrease, then increment");
                 Console.WriteLine("Format: {stat} {+/-}{value}, eg. str +4");
                 Console.WriteLine($"Remaining Stat Points: {statTotal}");
-                Console.WriteLine($"Str: {stats[0]}, Mag: {stats[1]}, Vit: {stats[2]}, Agl: {stats[3]}, Luc: {stats[4]}");
+                Console.WriteLine($"STR: {stats[0]}, MAG: {stats[1]}, VIT: {stats[2]}, AGL: {stats[3]}, LUC: {stats[4]}");
                 Console.Write("Input: ");
                 string inputStr = Console.ReadLine();
 

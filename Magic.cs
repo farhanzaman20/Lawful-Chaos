@@ -19,4 +19,10 @@ namespace Shin {
         Poison,
         None
     }
+
+    public class Spell {
+        public int Power;
+        public Elements Element;
+        public Ailments Ailment;
+    }
 }

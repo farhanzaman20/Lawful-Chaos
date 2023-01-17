@@ -7,12 +7,20 @@ namespace Shin {
         public StatSheet RawStats { get; set; }
         public PlayerStats Stats { get; set; }
         public int Level;
-        public int XP = 0;
+        public GameResources XP;
         public EquipmentManager Equipped { get; set; }
 
         // Constructor
         public PlayableCharacter(string name, StatSheet statSheet) {
             Level = 1;
+            Name = name;
+            RawStats = statSheet;
+            Stats = new PlayerStats(RawStats, Level);
+            Equipped = new EquipmentManager(0, -1, -1, 0, 0, 0, 0);
+            XP = new GameResources(0, 100);
+        }
+        public PlayableCharacter(string name, StatSheet statSheet, int level) {
+            Level = level;
             Name = name;
             RawStats = statSheet;
             Stats = new PlayerStats(RawStats, Level);
@@ -29,12 +37,7 @@ namespace Shin {
             Console.WriteLine("TurnSPD: " + Stats.TurnSPD);
             Console.WriteLine("DodgeChange: " + Stats.Evasion);
             Console.WriteLine("CritChange: " + Stats.CritChance);
-            Console.WriteLine("Negotiation: " + Stats.Negotiation);
             Console.WriteLine("EscapeChange: " + Stats.EscapeChance);
-        }
-
-        public void UpdateStats() {
-
         }
     }
 
@@ -69,13 +72,13 @@ namespace Shin {
         }
     }
 
-    public struct PlayerStats {
+    public class PlayerStats {
         // Constructor No Equipment
         public PlayerStats(StatSheet statSheet, int level) {
             // Resources
-            HP = Convert.ToInt32(
-                Math.Floor(3 / 2 * Convert.ToDouble(level + statSheet.VIT))) + 10;
-            MP = 5 * (level + statSheet.MAG);
+            HP = new GameResources(Convert.ToInt32(
+                Math.Floor(3 / 2 * Convert.ToDouble(level + statSheet.VIT))) + 10);
+            MP = new GameResources(5 * (level + statSheet.MAG));
 
             // ATK and DEF Related
             PhysATK = Convert.ToInt32(Math.Floor(0.7 * Convert.ToDouble(statSheet.STR)));
@@ -98,8 +101,8 @@ namespace Shin {
         }
 
         // Stats
-        public int HP;
-        public int MP;
+        public GameResources HP;
+        public GameResources MP;
         public int PhysATK;
         public int GunATK;
         public int PhysDEF;
@@ -109,6 +112,18 @@ namespace Shin {
         public int Evasion;
         public double CritChance;
         public double EscapeChance;
+    }
+
+    public struct GameResources {
+        public GameResources(int val) {
+            Current = Max = val;
+        }
+        public GameResources(int current, int max) {
+            Current = current;
+            Max = max;
+        }
+        public int Current;
+        public int Max;
     }
     #endregion
 }
