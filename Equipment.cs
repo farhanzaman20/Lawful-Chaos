@@ -1,47 +1,38 @@
 #nullable disable
 
 namespace Shin {
-    public class Equipment {
-        // Properties
-        public string Name { get; set; }
-        public object StatMod { get; set; }
-
-        // Constructor
-        public Equipment(string name, object statMod) {
+    public struct MeleeWeapon {
+        public MeleeWeapon(string name, int power, int cC, int accuracy, int nOH, StatSheet mod) {
             Name = name;
-            StatMod = statMod;
-        }
-    }
-
-    #region Equipment Stat Modifiers
-    public struct MeleeMod {
-        public MeleeMod(int power, double critChance, int accuracy, int noh, StatSheet mod) {
             Power = power;
-            CritChance = critChance;
+            CritChance = cC;
             Accuracy = accuracy;
-            NumberOfHits = noh;
+            NumberOfHits = nOH;
             StatMod = mod;
         }
-        public int Power;
-        public double CritChance;
-        public int Accuracy;
-        public int NumberOfHits;
-        public StatSheet StatMod;
+        public string Name { get; set; }
+        public int Power { get; set; }
+        public int CritChance { get; set; }
+        public int Accuracy { get; set; }
+        public int NumberOfHits { get; set; }
+        public StatSheet StatMod { get; set; }
     }
 
-    public struct GunMod {
-        public GunMod(int power, double critChance, int accuracy, GunHitType hitType, StatSheet mod) {
+    public struct GunWeapon {
+        public GunWeapon(string name, int power, int cC, int accuracy, GunHitType hT, StatSheet mod) {
+            Name = name;
             Power = power;
-            CritChance = critChance;
+            CritChance = cC;
             Accuracy = accuracy;
-            HitType = hitType;
+            HitType = hT;
             StatMod = mod;
         }
-        public int Power;
-        public double CritChance;
-        public int Accuracy;
-        public GunHitType HitType;
-        public StatSheet StatMod;
+        public string Name { get; set; }
+        public int Power { get; set; }
+        public int CritChance { get; set; }
+        public int Accuracy { get; set; }
+        public GunHitType HitType { get; set; }
+        public StatSheet StatMod { get; set; }
     }
 
     public enum GunHitType {
@@ -51,28 +42,33 @@ namespace Shin {
         None 
     }
 
-    public struct AmmoMod {
-        public AmmoMod(int multiplier, Elements type) {
-            Multiplier = multiplier;
-            Type = type;
+    public struct Ammo {
+        public Ammo(string name, double mult, Elements elem, Ailments ail) {
+            Name = name;
+            Multiplier = mult;
+            Element = elem;
+            Ailment = ail;
         }
-        public int Multiplier;
-        public Elements Type;
+        public string Name { get; set; }
+        public double Multiplier { get; set; }
+        public Elements Element { get; set; }
+        public Ailments Ailment { get; set; }
     }
 
-    public struct ArmourMod {
-        public ArmourMod(int def, int magDef, int evasion, StatSheet statMod) {
-            DEF = def;
+    public struct Equipment {
+        public Equipment(string name, int physDef, int magDef, int evade, StatSheet mod) {
+            Name = name;
+            PhysDEF = physDef;
             MagDEF = magDef;
-            Evasion = evasion;
-            StatMod = statMod;
+            Evasion = evade;
+            StatMod = mod;
         }
-        public int DEF;
-        public int MagDEF;
-        public int Evasion;
-        public StatSheet StatMod; 
+        public string Name { get; set; }
+        public int PhysDEF { get; set; }
+        public int MagDEF { get; set; }
+        public int Evasion { get; set; }
+        public StatSheet StatMod { get; set; }
     }
-    #endregion
 
     public class EquipmentManager {
         public EquipmentManager(int melee, int gun, int ammo, int head, int body, int legs, int foot) {
@@ -81,43 +77,74 @@ namespace Shin {
             Ammo = ammo;
             Headwear = head;
             BodyArmour = body;
-            Bracers = legs;
+            Legging = legs;
             Footwear = foot;
-            TotalStatMod = new StatSheet(
-                                
-            );
+            CalculateTotalArmourStats();
         }
         // Properties
-        public int MeleeWeapon;
-        public int GunWeapon;
-        public int Ammo;
-        public int Headwear;
-        public int BodyArmour;
-        public int Bracers;
-        public int Footwear;
-        public StatSheet TotalStatMod;
+        public int MeleeWeapon { get; set; }
+        public int GunWeapon { get; set; }
+        public int Ammo { get; set; }
+        public int Headwear { get; set; }
+        public int BodyArmour { get; set; }
+        public int Legging { get; set; }
+        public int Footwear { get; set; }
 
-        public static Equipment[] MeleeWeapons = {
-            new Equipment("Attack Knife", new MeleeMod(6, 0.1, 1, 1, new StatSheet()))
+        public int TotalPhysDEF { get; set; }
+        public int TotalMagDEF { get; set; }
+        public int TotalEvasion { get; set; }
+
+        public void CalculateTotalArmourStats() {
+            // Set these values to 0
+            TotalPhysDEF = 0;
+            TotalMagDEF = 0;
+            TotalEvasion = 0;
+
+            // Test for if armours equipped, if not, then only can it add values
+            if (Headwear >= 0) {
+                TotalPhysDEF += Headwears[Headwear].PhysDEF;
+                TotalMagDEF += Headwears[Headwear].MagDEF;
+                TotalEvasion += Headwears[Headwear].Evasion;
+            }
+            if (BodyArmour >= 0) {
+                TotalPhysDEF += BodyArmours[BodyArmour].PhysDEF;
+                TotalMagDEF += BodyArmours[BodyArmour].MagDEF;
+                TotalEvasion += BodyArmours[BodyArmour].Evasion;
+            }
+            if (Legging >= 0) {
+                TotalPhysDEF += Leggings[Legging].PhysDEF;
+                TotalMagDEF += Leggings[Legging].MagDEF;
+                TotalEvasion += Leggings[Legging].Evasion;
+            }
+            if (Footwear >= 0) {
+                TotalPhysDEF += Footwears[Footwear].PhysDEF;
+                TotalMagDEF += Footwears[Footwear].MagDEF;
+                TotalEvasion += Footwears[Footwear].Evasion;
+            }
+        }
+
+        // Equipments are saved in static arrays, and the actual players save the indexes from the arrays and use those to get the stats from the array
+        public static MeleeWeapon[] MeleeWeapons = {
+            new MeleeWeapon("Attack Knife", 6, 10, 1, 1, new StatSheet())
         };
 
-        public static Equipment[] GunWeapons = {
-            new Equipment("Pistol", new GunMod(3, 0.05, 2, GunHitType.Single, new StatSheet()))
+        public static GunWeapon[] GunWeapons = {
+            new GunWeapon("Pistol", 3, 5, 2, GunHitType.Single, new StatSheet())
         };
-        public static Equipment[] Ammos = {
-            new Equipment("Bullet", new AmmoMod(2, Elements.Physical))
+        public static Ammo[] Ammos = {
+            new Ammo("Normal Bullet", 2, Elements.Physical, Ailments.None)
         };
         public static Equipment[] Headwears = {
-            new Equipment("Headgear", new ArmourMod(3, 2, 2, new StatSheet()))
+            new Equipment("Headgear", 1, 0, 0, new StatSheet())
         };
         public static Equipment[] BodyArmours = {
-            new Equipment("Body Armour", new ArmourMod(5, 1, 1, new StatSheet()))
+            new Equipment("Hunting Vest", 2, 0, 1, new StatSheet())
         };
-        public static Equipment[] BracerArmours = {
-            new Equipment("Basic Leggings", new ArmourMod(4, 2, 2, new StatSheet()))
+        public static Equipment[] Leggings = {
+            new Equipment("Hunting Pants", 2, 0, 1, new StatSheet())
         };
         public static Equipment[] Footwears = {
-            new Equipment("Running Shoes", new ArmourMod(2, 1, 4, new StatSheet()))
+            new Equipment("Plain Boots", 0, 0, 2, new StatSheet())
         };
     }
 }

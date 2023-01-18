@@ -4,17 +4,30 @@ namespace Shin {
     static class Program {
         static void Main () {
             Console.Clear();
-            Game gameController = new Game(CharactorCreation());
-            Console.WriteLine("Current Stats");
-            Console.WriteLine(gameController.MainCharacter.RawStats.ToString());
+
+            // Initialize Game Object
+            // Game gameController = new Game(CharactorCreation());
+            // Console.WriteLine("Current Stats");
+            // Console.WriteLine(gameController.MainCharacter.RawStats.ToString());
+
+            Game gameController = new Game(new PlayableCharacter("Flynn", new StatSheet(10, 5, 10, 8, 8)));
+
+            gameController.CurrentEnemies.Add(new Enemy(20, 0, 0, "Goblin"));
+            gameController.CurrentEnemies.Add(new Enemy(20, 0, 0, "Goblin"));
+            gameController.CurrentEnemies.Add(new Enemy(20, 0, 0, "Goblin"));
+            gameController = Combat.CombatLoop(gameController);
         }
 
         static PlayableCharacter CharactorCreation() {
-            Console.Write("Enter a name: ");
-            string name = Console.ReadLine();
+            // Ask for Player name
+            Console.Write("Enter a name (12 character limit): ");
+            string name = MyLibrary.String(12);
+
+            // Data Structure for Stat Input
             int statTotal = 16;
             int[] stats = {5, 5, 5, 5, 5};
 
+            // Stat Input Loop
             while (statTotal > 0) {
                 Console.Clear();
                 Console.WriteLine("Choose a stat to increase or decrease, then increment");
@@ -24,14 +37,18 @@ namespace Shin {
                 Console.Write("Input: ");
                 string inputStr = Console.ReadLine();
 
+                // Splits the input
                 string[] strArray = inputStr.Split(" ", 2);
                 int incrementVal = Convert.ToInt32(strArray[1]);
+
+                // Measures to prevent getting more than stat total
                 if (incrementVal > statTotal) {
                     Console.Clear();
                     Console.WriteLine("Not enough stat points left");
                     continue;
                 } else {
                     statTotal -= incrementVal;
+                    // Adds Stats to Stats Array
                     if (strArray[0].ToLower() == "str") {
                         stats[0] += incrementVal;
                     } else if (strArray[0].ToLower() == "mag") {
@@ -47,31 +64,62 @@ namespace Shin {
                         Console.WriteLine("Invalid input");
                         continue;
                     }
+
+                    // Makes sure no stats go above the character creation stat cap of 12 or below the minimum of 5
                     for (int i = 0; i < stats.Length; i++) {
                         while (stats[i] >= 13) {
                             stats[i]--;
-                            statTotal++;
-                        }
-                        while (stats[i] < 5) {
-                            stats[i]++;
+                            statTotal++; } while (stats[i] < 5) { stats[i]++;
                             statTotal--;
                         }
                     }
                 }
             }
+
+            // Creates and returns the Stat Sheet to use in creating the Main Character
             StatSheet mcStats = new StatSheet(stats[0], stats[1], stats[2], stats[3], stats[4]);
             return new PlayableCharacter(name, mcStats);
         }
     }
 
     public class Game {
-        public PlayableCharacter MainCharacter { get; set; }
-        public int[] Party = {-1, -1, -1};
+        // Main Character
+
+        // Party Array only holds the index of the actual party member, which is stored in Party Options List
+        public int[] Party = {-1, -1, -1, -1};
         public List<PlayableCharacter> PartyOptions { get; set; }
 
+        // List of current Enemies
+        public List<Enemy> CurrentEnemies { get; set; }
+        public int BattleXP { get; set; }
+
+        // Constructor
         public Game(PlayableCharacter mc) {
             PartyOptions = new List<PlayableCharacter>();
-            MainCharacter = mc;
+            CurrentEnemies = new List<Enemy>();
+            PartyOptions.Add(mc);
+            Party[0] = 0;
+
+        }
+    }
+
+    public static class MyLibrary {
+        // Method to take input string but limit the number of characters
+        public static string String(int limit) {
+            string tempStr = "";
+            do {
+                char c = Console.ReadKey().KeyChar;
+                if (c == '\r') {break;}
+
+                tempStr += c;
+            } while (tempStr.Length < limit);
+            Console.WriteLine();
+            return tempStr;
+        }
+
+        public static int Random(int minInc, int maxExc) {
+            Random rnd = new Random();
+            return rnd.Next(minInc, maxExc);
         }
     }
 }
