@@ -61,3 +61,24 @@ F:/VSCode/Lawful Chaos/obj/Debug/net6.0/ref/Lawful Chaos Causes Neutrality.dll
 /home/fzaman/Git/School/Lawful-Chaos/obj/Debug/net6.0/Lawful Chaos Causes Neutrality.genruntimeconfig.cache
 /home/fzaman/Git/School/Lawful-Chaos/obj/Debug/net6.0/ref/Lawful Chaos Causes Neutrality.dll
 /home/fzaman/Git/School/Lawful-Chaos/bin/Debug/net6.0/ref/Lawful Chaos Causes Neutrality.dll
+/home/fzaman/Coding/C#/Lawful-Chaos/obj/Debug/net6.0/Lawful Chaos Causes Neutrality.csproj.AssemblyReference.cache
+/home/fzaman/Coding/C#/Lawful-Chaos/obj/Debug/net6.0/Lawful Chaos Causes Neutrality.GeneratedMSBuildEditorConfig.editorconfig
+/home/fzaman/Coding/C#/Lawful-Chaos/obj/Debug/net6.0/Lawful Chaos Causes Neutrality.AssemblyInfoInputs.cache
+/home/fzaman/Coding/C#/Lawful-Chaos/obj/Debug/net6.0/Lawful Chaos Causes Neutrality.AssemblyInfo.cs
+/home/fzaman/Coding/C#/Lawful-Chaos/obj/Debug/net6.0/Lawful Chaos Causes Neutrality.csproj.CoreCompileInputs.cache
+/home/fzaman/Coding/C#/Lawful-Chaos/obj/Debug/net6.0/Lawful Chaos Causes Neutrality.dll
+/home/fzaman/Coding/C#/Lawful-Chaos/obj/Debug/net6.0/ref/Lawful Chaos Causes Neutrality.dll
+/home/fzaman/Coding/C#/Lawful-Chaos/obj/Debug/net6.0/Lawful Chaos Causes Neutrality.pdb
+/home/fzaman/Coding/C#/Lawful-Chaos/bin/Debug/net6.0/Lawful Chaos Causes Neutrality
+/home/fzaman/Coding/C#/Lawful-Chaos/bin/Debug/net6.0/Lawful Chaos Causes Neutrality.deps.json
+/home/fzaman/Coding/C#/Lawful-Chaos/bin/Debug/net6.0/Lawful Chaos Causes Neutrality.runtimeconfig.json
+/home/fzaman/Coding/C#/Lawful-Chaos/bin/Debug/net6.0/Lawful Chaos Causes Neutrality.dll
+/home/fzaman/Coding/C#/Lawful-Chaos/bin/Debug/net6.0/ref/Lawful Chaos Causes Neutrality.dll
+/home/fzaman/Coding/C#/Lawful-Chaos/bin/Debug/net6.0/Lawful Chaos Causes Neutrality.pdb
+/home/fzaman/Coding/C#/Lawful-Chaos/bin/Debug/net6.0/NStack.dll
+/home/fzaman/Coding/C#/Lawful-Chaos/bin/Debug/net6.0/Terminal.Gui.dll
+/home/fzaman/Coding/C#/Lawful-Chaos/bin/Debug/net6.0/fr-FR/Terminal.Gui.resources.dll
+/home/fzaman/Coding/C#/Lawful-Chaos/bin/Debug/net6.0/ja-JP/Terminal.Gui.resources.dll
+/home/fzaman/Coding/C#/Lawful-Chaos/bin/Debug/net6.0/pt-PT/Terminal.Gui.resources.dll
+/home/fzaman/Coding/C#/Lawful-Chaos/obj/Debug/net6.0/Lawful Chaos Causes Neutrality.csproj.CopyComplete
+/home/fzaman/Coding/C#/Lawful-Chaos/obj/Debug/net6.0/Lawful Chaos Causes Neutrality.genruntimeconfig.cache

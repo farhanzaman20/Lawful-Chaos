@@ -3,6 +3,14 @@
 namespace Shin {
     public class Combat {
         public static Game CombatLoop(Game gameController) {
+            // Testing 
+            gameController.PartyOptions.Add(new PlayableCharacter("Jonathan", new StatSheet(8, 12, 7, 10, 10), 7));
+            gameController.PartyOptions.Add(new PlayableCharacter("Walter", new StatSheet(12, 5, 12, 8, 10), 7));
+            gameController.Party[1] = 1;
+            gameController.Party[2] = 2;
+            gameController.PartyOptions[2].Equipped.Ammo = 0;
+            gameController.PartyOptions[2].Equipped.GunWeapon = 0;
+
             // Starting Battle State
             BattleState currentState = BattleState.PlayerTurn;
 
@@ -12,6 +20,7 @@ namespace Shin {
                     PlayerPartyTurn(gameController);
                     if (gameController.CurrentEnemies.Count <= 0) {
                         currentState = BattleState.PlayerWin;
+                        PlayerWin();
                     } else {
                         currentState = BattleState.EnemyTurn;
                     }
@@ -19,6 +28,7 @@ namespace Shin {
                     EnemyTurn(gameController);
                     if (gameController.PartyOptions[0].Stats.HP.Current <= 0) {
                         currentState = BattleState.EnemyWin;
+                        EnemyWin();
                     } else {
                         currentState = BattleState.PlayerTurn;
                     }
@@ -30,7 +40,7 @@ namespace Shin {
 
         public static void BattleGUI(Game gameController) {
             // Player's Party
-            Console.WriteLine("{0, -20}{1, 15}{2, 25}", "Player's Party:", "HP", "MP");
+            Console.WriteLine("{0, -20}{1, 15}{2, 25}{3, 35}", "Player's Party:", "HP", "MP", "XP");
             string playerParty = "";
 
             for (int i = 0; i < 3; i++) {
@@ -39,11 +49,13 @@ namespace Shin {
                     playerParty += String.Format("{0, -20}", gameController.PartyOptions[gameController.Party[i]].Name);
                     playerParty += String.Format("{0, 15}", gameController.PartyOptions[gameController.Party[i]].Stats.HP.ToString());
                     playerParty += String.Format("{0, 25}", gameController.PartyOptions[gameController.Party[i]].Stats.MP.ToString());
+                    playerParty += String.Format("{0, 35}", gameController.PartyOptions[gameController.Party[i]].XP.ToString());
                 } else {
                     // For the slots that don't have party members, just shows Nobody and 0/0 for HP and MP
                     playerParty += String.Format("{0, -20}", "Nobody");
                     playerParty += String.Format("{0, 15}", "0/0");
                     playerParty += String.Format("{0, 25}", "0/0");
+                    playerParty += String.Format("{0, 35}", "0/0");
                 }
                 playerParty += "\n";
             }
@@ -67,13 +79,6 @@ namespace Shin {
         public static void PlayerPartyTurn(Game gameController) {
             Console.Clear();
 
-            gameController.PartyOptions.Add(new PlayableCharacter("Jonathan", new StatSheet(8, 12, 7, 10, 10), 7));
-            gameController.PartyOptions.Add(new PlayableCharacter("Walter", new StatSheet(12, 5, 12, 8, 10), 7));
-            gameController.Party[1] = 1;
-            gameController.Party[2] = 2;
-            gameController.PartyOptions[2].Equipped.Ammo = 0;
-            gameController.PartyOptions[2].Equipped.GunWeapon = 0;
-
             // Dictionary of Party turn speeds to sort for turn order
             Dictionary<int, int> partyTurnSpd = new Dictionary<int, int>();
 
@@ -90,11 +95,18 @@ namespace Shin {
             }
 
             for (int i = 0; i < turnOrder.Count; i++) {
-                PartyMemberTurn(gameController, turnOrder[i]);
+                if (gameController.PartyOptions[turnOrder[i]].Stats.HP.Current > 0) {
+                    PartyMemberTurn(gameController, turnOrder[i]);
+                }
             }
 
             for (int i = 0; i < gameController.CurrentEnemies.Count; i++) {
                 if (gameController.CurrentEnemies[i].HP.Current <= 0) {
+                    for (int q = 0; q < gameController.Party.Length; q++) {
+                        if (gameController.Party[q] >= 0 && gameController.PartyOptions[gameController.Party[q]].Stats.HP.Current > 0) {
+                            gameController.PartyOptions[gameController.Party[q]].XP.Current += Enemy.EnemyTypes[gameController.CurrentEnemies[i].Type].XPYield;
+                        }
+                    }
                     gameController.CurrentEnemies.RemoveAt(i);
                 }
             }
@@ -119,7 +131,7 @@ namespace Shin {
                     Console.Write("Choose an enemy to attack: ");
                     bool isInputInt = Int32.TryParse(Console.ReadLine(), out int enemyTarget);
 
-                    if (enemyTarget <= gameController.CurrentEnemies.Count && enemyTarget > 0) {
+                    if (enemyTarget <= gameController.CurrentEnemies.Count && enemyTarget > 0 && isInputInt) {
                         gameController.PartyOptions[partyMember].MeleeAttack(gameController.CurrentEnemies[enemyTarget - 1]);
                         loop = false;
                     } else {
@@ -129,7 +141,7 @@ namespace Shin {
                 } else if (action == "2") {
                     Console.Write("Choose an enemy to attack: ");
                     bool isInputInt = Int32.TryParse(Console.ReadLine(), out int enemyTarget);
-                    if (enemyTarget <= gameController.CurrentEnemies.Count && enemyTarget > 0) {
+                    if (enemyTarget <= gameController.CurrentEnemies.Count && enemyTarget > 0 && isInputInt) {
                         if (gameController.PartyOptions[partyMember].Equipped.GunWeapon == -1 || gameController.PartyOptions[partyMember].Equipped.Ammo == -1) {
                             Console.WriteLine("No equipped gun or ammo");
                             Console.ReadKey(true);
@@ -166,6 +178,7 @@ namespace Shin {
 
             for (int i = 0; i < gameController.CurrentEnemies.Count; i++) {
                 BattleGUI(gameController);
+                Console.WriteLine("Enemy Turn: {0}", i + 1);
                 int attackedPartyMember = MyLibrary.Random(0, partyLength);
                 if (Enemy.EnemyTypes[gameController.CurrentEnemies[i].Type].Magic.Length > 0) {
                     int actionChoice = MyLibrary.Random(1, 5);
@@ -187,7 +200,11 @@ namespace Shin {
         public static void PlayerWin() {
             Console.Clear();
             Console.WriteLine("You won the battle!");
-            Console.WriteLine("");
+        }
+
+        public static void EnemyWin() {
+            Console.Clear();
+            Console.WriteLine("GAME OVER!!");
         }
         #endregion
     }

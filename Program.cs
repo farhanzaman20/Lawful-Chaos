@@ -16,6 +16,9 @@ namespace Shin {
             gameController.CurrentEnemies.Add(new Enemy(20, 0, 0, "Goblin"));
             gameController.CurrentEnemies.Add(new Enemy(20, 0, 0, "Goblin"));
             gameController = Combat.CombatLoop(gameController);
+
+            gameController.CurrentEnemies.Add(new Enemy(500, 0, 1, "Demon Knight"));
+            gameController = Combat.CombatLoop(gameController);
         }
 
         static PlayableCharacter CharactorCreation() {

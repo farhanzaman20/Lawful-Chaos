@@ -39,5 +39,10 @@ namespace Shin {
         public int Cost { get; set; }
         public Elements Element { get; set; }
         public Ailments Ailment { get; set; }
+        public void Cast(Game gameController, Enemy enemy) {
+            if (Element = Elements.Bless) {
+                Console.Write("Choose player: ");
+            }
+        }
     }
 }

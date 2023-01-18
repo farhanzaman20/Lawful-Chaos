@@ -147,11 +147,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/fzaman/Git/School/Lawful-Chaos/Lawful Chaos Causes Neutrality.csproj",
+      "projectUniqueName": "/home/fzaman/Coding/C#/Lawful-Chaos/Lawful Chaos Causes Neutrality.csproj",
       "projectName": "Lawful Chaos Causes Neutrality",
-      "projectPath": "/home/fzaman/Git/School/Lawful-Chaos/Lawful Chaos Causes Neutrality.csproj",
+      "projectPath": "/home/fzaman/Coding/C#/Lawful-Chaos/Lawful Chaos Causes Neutrality.csproj",
       "packagesPath": "/home/fzaman/.nuget/packages/",
-      "outputPath": "/home/fzaman/Git/School/Lawful-Chaos/obj/",
+      "outputPath": "/home/fzaman/Coding/C#/Lawful-Chaos/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/fzaman/.nuget/NuGet/NuGet.Config"
@@ -193,12 +193,18 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.10, 6.0.10]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.113/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.110/RuntimeIdentifierGraph.json"
       }
     }
   }

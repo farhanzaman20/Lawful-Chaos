@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "ihYP5FpBva3SyTgVk5QTgYTO4NXffOkn2SqiBithHFE5Ejxz7oQm8zurHHeMD9e6zmc1O41qM+Srre+nBLOvrQ==",
+  "dgSpecHash": "OAkiVgnZhy8IF1WWPrO5yxZXfVym836p4M1SJXVzRQAOd9z8qIKGIg0+c8zIqkOuzp1RCsdNEA7zY5WKOAfVfw==",
   "success": true,
-  "projectFilePath": "/home/fzaman/Git/School/Lawful-Chaos/Lawful Chaos Causes Neutrality.csproj",
+  "projectFilePath": "/home/fzaman/Coding/C#/Lawful-Chaos/Lawful Chaos Causes Neutrality.csproj",
   "expectedPackageFiles": [
     "/home/fzaman/.nuget/packages/nstack.core/1.0.3/nstack.core.1.0.3.nupkg.sha512",
     "/home/fzaman/.nuget/packages/system.valuetuple/4.5.0/system.valuetuple.4.5.0.nupkg.sha512",
-    "/home/fzaman/.nuget/packages/terminal.gui/1.8.2/terminal.gui.1.8.2.nupkg.sha512"
+    "/home/fzaman/.nuget/packages/terminal.gui/1.8.2/terminal.gui.1.8.2.nupkg.sha512",
+    "/home/fzaman/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.10/microsoft.aspnetcore.app.ref.6.0.10.nupkg.sha512"
   ],
   "logs": []
 }

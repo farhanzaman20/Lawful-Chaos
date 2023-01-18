@@ -31,6 +31,7 @@ namespace Shin {
         }
         public static EnemyStats[] EnemyTypes = {
             new EnemyStats(5, 3, 0, 3, 20, 4, 20, new int[0]), // Goblin
+            new EnemyStats(20, 50, 0, 50, 100, 100, 0, new int[0]) // Demon Knight
         };
     }
 
