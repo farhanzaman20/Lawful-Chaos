@@ -19,6 +19,7 @@ namespace Shin {
             Stats = new PlayerStats(RawStats, Level);
             Equipped = new EquipmentManager(0, -1, -1, 0, 0, 0, 0);
             XP = new GameResources(0, 100);
+            Magic = new List<int>();
             UpdateStats();
         }
 

@@ -19,18 +19,19 @@ namespace Shin {
 
     public static class SpellManager {
         public static Spell[] Spells = {
-            new Spell("Heal", 10, Elements.Bless, Ailments.None),
-            new Spell("Fire", 10, Elements.Fire, Ailments.None),
-            new Spell("Ice", 10, Elements.Ice, Ailments.None),
-            new Spell("Lightning", 10, Elements.Electric, Ailments.None),
-            new Spell("Poison Breath", 7, Elements.Ailment, Ailments.Poison)
+            new Spell("Heal", 10, 10, Elements.Bless, Ailments.None),
+            new Spell("Fire", 10, 5, Elements.Fire, Ailments.None),
+            new Spell("Ice", 10, 5, Elements.Ice, Ailments.None),
+            new Spell("Lightning", 10, 5, Elements.Electric, Ailments.None),
+            new Spell("Poison Breath", 7, 5, Elements.Ailment, Ailments.Poison)
         };
     }
 
     public class Spell {
-        public Spell(string name, int power, Elements element, Ailments ailment) {
+        public Spell(string name, int power, int cost, Elements element, Ailments ailment) {
             Name = name;
             Power = power;
+            Cost = cost;
             Element = element;
             Ailment = ailment;
         }
@@ -39,9 +40,20 @@ namespace Shin {
         public int Cost { get; set; }
         public Elements Element { get; set; }
         public Ailments Ailment { get; set; }
-        public void Cast(Game gameController, Enemy enemy) {
-            if (Element = Elements.Bless) {
+        public void Cast(Game gameController) {
+            if (Element == Elements.Bless) {
                 Console.Write("Choose player: ");
+
+                bool isInputInt = Int32.TryParse(Console.ReadLine(), out int chosenPlayer);
+
+                if (chosenPlayer > 0 && chosenPlayer <= gameController.PartyLenth() && isInputInt) {
+                    gameController.PartyOptions[gameController.Party[chosenPlayer - 1]].Stats.HP.Current += Power + gameController.PartyOptions[gameController.Party[chosenPlayer - 1]].Stats.MagPOT;
+                    while (gameController.PartyOptions[gameController.Party[chosenPlayer - 1]].Stats.HP.Current > gameController.PartyOptions[gameController.Party[chosenPlayer - 1]].Stats.HP.Max) {
+                        gameController.PartyOptions[gameController.Party[chosenPlayer - 1]].Stats.HP.Current--;
+                    }
+                } else {
+                    Console.WriteLine("Invalid option");
+                }
             }
         }
     }

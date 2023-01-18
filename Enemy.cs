@@ -31,12 +31,13 @@ namespace Shin {
         }
         public static EnemyStats[] EnemyTypes = {
             new EnemyStats(5, 3, 0, 3, 20, 4, 20, new int[0]), // Goblin
-            new EnemyStats(20, 50, 0, 50, 100, 100, 0, new int[0]) // Demon Knight
+            new EnemyStats(3, 0, 0, 2, 23, 3, 25, new int[0]), // Skeleton
+            new EnemyStats(10, 8, 0, )
         };
     }
 
     public struct EnemyStats {
-        public EnemyStats(int physAtk, int physDef, int magAtk, int magDef, int accuracy, int evasion, int xp, int[] magic) {
+        public EnemyStats(int physAtk, int physDef, int magPot, int magDef, int accuracy, int evasion, int xp, int[] magic) {
             PhysATK = physAtk;
             PhysDEF = physDef;
             MagPOT = magAtk;

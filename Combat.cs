@@ -3,14 +3,6 @@
 namespace Shin {
     public class Combat {
         public static Game CombatLoop(Game gameController) {
-            // Testing 
-            gameController.PartyOptions.Add(new PlayableCharacter("Jonathan", new StatSheet(8, 12, 7, 10, 10), 7));
-            gameController.PartyOptions.Add(new PlayableCharacter("Walter", new StatSheet(12, 5, 12, 8, 10), 7));
-            gameController.Party[1] = 1;
-            gameController.Party[2] = 2;
-            gameController.PartyOptions[2].Equipped.Ammo = 0;
-            gameController.PartyOptions[2].Equipped.GunWeapon = 0;
-
             // Starting Battle State
             BattleState currentState = BattleState.PlayerTurn;
 
@@ -38,12 +30,12 @@ namespace Shin {
             return gameController;
         }
 
-        public static void BattleGUI(Game gameController) {
+        private static void BattleGUI(Game gameController) {
             // Player's Party
             Console.WriteLine("{0, -20}{1, 15}{2, 25}{3, 35}", "Player's Party:", "HP", "MP", "XP");
             string playerParty = "";
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 4; i++) {
                 if (gameController.Party[i] >= 0) {
                     // Pulls info from Party Members List based on active party
                     playerParty += String.Format("{0, -20}", gameController.PartyOptions[gameController.Party[i]].Name);
@@ -76,7 +68,7 @@ namespace Shin {
         }
 
         #region Player's Turn
-        public static void PlayerPartyTurn(Game gameController) {
+        private static void PlayerPartyTurn(Game gameController) {
             Console.Clear();
 
             // Dictionary of Party turn speeds to sort for turn order
@@ -112,7 +104,7 @@ namespace Shin {
             }
         }
 
-        public static void PartyMemberTurn(Game gameController, int partyMember) {
+        private static void PartyMemberTurn(Game gameController, int partyMember) {
             gameController.PartyOptions[partyMember].UpdateStats();
             bool loop = true;
 
@@ -154,7 +146,26 @@ namespace Shin {
                         Console.ReadKey(true);
                     }
                 } else if (action == "3") {
+                    if (gameController.PartyOptions[partyMember].Magic.Count > 0) {
+                        for (int i = 0; i < gameController.PartyOptions[partyMember].Magic.Count; i++) {
+                            Console.WriteLine("{0}. {1}", i + 1, SpellManager.Spells[gameController.PartyOptions[partyMember].Magic[i]].Name);
+                        }
+                        Console.Write("Spell: ");
+                        bool isInputInt = Int32.TryParse(Console.ReadLine(), out int spellOption);
 
+                        if (spellOption > 0 && spellOption <= gameController.PartyOptions[partyMember].Magic.Count && isInputInt) {
+                            if (gameController.PartyOptions[partyMember].Stats.MP.Current >= SpellManager.Spells[gameController.PartyOptions[partyMember].Magic[spellOption - 1]].Cost) {
+                                SpellManager.Spells[gameController.PartyOptions[partyMember].Magic[spellOption - 1]].Cast(gameController);
+                                gameController.PartyOptions[partyMember].Stats.MP.Current -= SpellManager.Spells[gameController.PartyOptions[partyMember].Magic[spellOption - 1]].Cost;
+                                loop = false;
+                            } else {
+                                Console.WriteLine("Not enough MP");
+                            }
+                        } else {
+                            Console.WriteLine("Invalid option");
+                            Console.ReadKey(true);
+                        }
+                    }
                 } else if (action == "4") {
                     gameController.PartyOptions[partyMember].Stats.PhysDEF *= 3;
                     loop = false;
@@ -168,13 +179,8 @@ namespace Shin {
         #endregion
 
         #region Enemy's Turn
-        public static void EnemyTurn(Game gameController) {
-            int partyLength = 0;
-            for (int i = 0; i < gameController.Party.Length; i++) {
-                if (gameController.Party[i] >= 0) {
-                    partyLength++;
-                }
-            }
+        private static void EnemyTurn(Game gameController) {
+            int partyLength = gameController.PartyLenth();
 
             for (int i = 0; i < gameController.CurrentEnemies.Count; i++) {
                 BattleGUI(gameController);
@@ -190,6 +196,7 @@ namespace Shin {
                 } else {
                     gameController.CurrentEnemies[i].MeleeAttack(gameController.PartyOptions[attackedPartyMember]);
                 }
+                Console.Write("Press any key to continue");
                 Console.ReadKey(true);
                 Console.Clear();
             }
@@ -205,11 +212,12 @@ namespace Shin {
         public static void EnemyWin() {
             Console.Clear();
             Console.WriteLine("GAME OVER!!");
+            Environment.Exit(0);
         }
         #endregion
     }
 
-    public enum BattleState {
+    internal enum BattleState {
         PlayerTurn,
         EnemyTurn,
         PlayerWin,

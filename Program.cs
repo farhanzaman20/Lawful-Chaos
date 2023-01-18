@@ -6,19 +6,21 @@ namespace Shin {
             Console.Clear();
 
             // Initialize Game Object
-            // Game gameController = new Game(CharactorCreation());
-            // Console.WriteLine("Current Stats");
-            // Console.WriteLine(gameController.MainCharacter.RawStats.ToString());
+            Game gameController = new Game(CharactorCreation());
+            Console.WriteLine("Current Stats");
+            Console.WriteLine(gameController.PartyOptions[0].RawStats.ToString());
+            gameController.PartyOptions[0].Magic.Add(0);
+            Console.ReadKey(true);
 
-            Game gameController = new Game(new PlayableCharacter("Flynn", new StatSheet(10, 5, 10, 8, 8)));
+            Console.Clear();
+            Console.WriteLine("As you walk down a road, 2 Goblins appear");
+            gameController.CurrentEnemies.Add(new Enemy(20, 0, 0, "Goblin"));
+            gameController.CurrentEnemies.Add(new Enemy(20, 0, 0, "Goblin"));
+            Console.ReadKey(true);
 
-            gameController.CurrentEnemies.Add(new Enemy(20, 0, 0, "Goblin"));
-            gameController.CurrentEnemies.Add(new Enemy(20, 0, 0, "Goblin"));
-            gameController.CurrentEnemies.Add(new Enemy(20, 0, 0, "Goblin"));
             gameController = Combat.CombatLoop(gameController);
 
-            gameController.CurrentEnemies.Add(new Enemy(500, 0, 1, "Demon Knight"));
-            gameController = Combat.CombatLoop(gameController);
+            gameController = Dungeon1.FirstFloor(gameController);
         }
 
         static PlayableCharacter CharactorCreation() {
@@ -103,6 +105,17 @@ namespace Shin {
             PartyOptions.Add(mc);
             Party[0] = 0;
 
+        }
+
+        public int PartyLenth() {
+            int len = 0;
+            for (int i = 0; i < Party.Length; i++) {
+                if (Party[i] >= 0) {
+                    len++;
+                }
+            }
+
+            return len;
         }
     }
 
